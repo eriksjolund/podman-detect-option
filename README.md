@@ -25,8 +25,8 @@ is required if the container would be run with bind-mounts (`podman run --volume
    git clone URL
    cd podman-detect-option
    sudo bash podman-detect-option.bash \
-     "$dir/podman-detect-option.helper1.bash" \
-     "$dir/podman-detect-option.helper2.bash" \
+     "$dir/podman-detect-option/podman-detect-option.helper1.bash" \
+     "$dir/podman-detect-option/podman-detect-option.helper2.bash" \
      $user \
      $seconds \
      --quiet --env MARIADB_RANDOM_ROOT_PASSWORD=1 docker.io/library/mariadb     
