@@ -23,6 +23,7 @@ is required if the container would be run with bind-mounts (`podman run --volume
    dir=$(mktemp -d)
    cd $dir
    git clone URL
+   cd podman-detect-option
    sudo bash podman-detect-option.bash \
      "$dir/podman-detect-option.helper1.bash" \
      "$dir/podman-detect-option.helper2.bash" \

@@ -18,4 +18,4 @@ sleep "$seconds"
 upperdir=$(podman container inspect "test${extra}" -f '{{ .GraphDriver.Data.UpperDir }}')
 
 cd "$upperdir"
-podman unshare "$helperscript2"
+podman unshare bash "$helperscript2"
