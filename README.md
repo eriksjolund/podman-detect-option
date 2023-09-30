@@ -24,6 +24,7 @@ is required if the container would be run with bind-mounts (`podman run --volume
    cd $dir
    git clone URL
    cd podman-detect-option
+   chmod -R 755 $dir
    sudo bash podman-detect-option.bash \
      "$dir/podman-detect-option/podman-detect-option.helper1.bash" \
      "$dir/podman-detect-option/podman-detect-option.helper2.bash" \
