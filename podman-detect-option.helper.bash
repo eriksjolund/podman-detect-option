@@ -3,6 +3,7 @@
 set -o errexit
 set -o nounset
 
+ctr=$1
 tmpdir=$(mktemp -d)
 
 # non-root uidgids in container
@@ -10,7 +11,7 @@ find . -printf '%U:%G\n' | grep -v '^0:0' | sort -u > "$tmpdir/container.uidgids
 
 # non-root uidgids in volumes
 index=0
-for i in $(podman volume list --noheading --format "{{range .}}\t{{.Name}}\n{{end -}}"); do
+for i in $(podman container inspect --format "{{range .Mounts}}\t{{.Name}}\n{{end -}}" "$ctr"); do
   dir=$(podman volume mount "$i")
   cd "$dir"
   find . -printf '%U:%G\n' | grep -v '^0:0' | sort -u > "$tmpdir/volume${index}.uidgids.txt"
