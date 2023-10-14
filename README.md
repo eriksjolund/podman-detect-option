@@ -22,7 +22,7 @@ is required if the container would be run with bind-mounts (`podman run --volume
    chmod -R 755 $dir
    bash podman-detect-option.bash \
      "$dir/podman-detect-option/podman-detect-option.helper.bash" \
-     seconds \
+     $seconds \
      --quiet docker.io/library/redis
    ```
 __Result__: `--userns=keep-id:uid=999,gid=999`
