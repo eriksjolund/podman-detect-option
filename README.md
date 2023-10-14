@@ -81,8 +81,8 @@ https://hub.docker.com/search?image_filter=official&q=
 | docker.io/library/registry | `--userns=keep-id:uid=999,gid=999` | |
 | --env MARIADB_RANDOM_ROOT_PASSWORD=1 docker.io/library/mariadb | `--userns=keep-id:uid=999,gid=999` | |
 | docker.io/library/tomcat | | |
-| docker.io/library/mongo | | |
-| docker.io/library/postgres | | |
-| docker.io/library/wordpress | | |
+| docker.io/library/mongo | `--userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/postgres | ` --userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/wordpress | `--userns=keep-id:uid=33,gid=33` | |
 
 An empty result does not neccessarily mean that no `--userns=keep-id:uid=$uid,gid=$gid` is needed.
