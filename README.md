@@ -84,5 +84,9 @@ https://hub.docker.com/search?image_filter=official&q=
 | docker.io/library/mongo | `--userns=keep-id:uid=999,gid=999` | |
 | docker.io/library/postgres | ` --userns=keep-id:uid=999,gid=999` | |
 | docker.io/library/wordpress | `--userns=keep-id:uid=33,gid=33` | |
+| docker.io/library/nextcloud | `--userns=keep-id:uid=33,gid=33` | |
+| docker.io/library/zookeeper | `--userns=keep-id:uid=1000,gid=1000` | |
+| docker.io/library/neo4j | `--userns=keep-id:uid=7474,gid=7474` | |
+| docker.io/library/haproxy | | |
 
 An empty result does not neccessarily mean that no `--userns=keep-id:uid=$uid,gid=$gid` is needed.
