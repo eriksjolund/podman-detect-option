@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 
-helperscript2=$1
+helperscript=$1
 seconds=$2
 
 # remove unneeded argument from $@
@@ -20,4 +20,4 @@ sleep "$seconds"
 upperdir=$(podman container inspect "$ctr" -f '{{ .GraphDriver.Data.UpperDir }}')
 
 cd "$upperdir"
-podman unshare bash "$helperscript2"
+podman unshare bash "$helperscript"
