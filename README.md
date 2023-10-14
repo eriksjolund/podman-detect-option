@@ -6,7 +6,9 @@ If the container started to run as the container user root (0:0) but later creat
 ownership other than (0:0), that might indicate that the `podman run` option `--userns=keep-id:uid=$uid,gid=$gid`
 is required if the container would be run with bind-mounts (`podman run --volume /host/dir:/container/dir ...`).
 
-## Example 1: try docker.io/library/redis
+## Examples
+
+### Example 1: try docker.io/library/redis
 
 1. Set the shell variable _seconds_ to specify how long the container should run
    before the ownership of created files is checked.
@@ -27,7 +29,7 @@ is required if the container would be run with bind-mounts (`podman run --volume
    ```
 __Result__: `--userns=keep-id:uid=999,gid=999`
 
-## Example 2: create user and try docker.io/library/mariadb
+### Example 2: create user and try docker.io/library/mariadb
 
 Example 2 is similar to Example 1. Example 2 demonstrates how to use
 the wrapper script _create-user-and-detect-option.bash_ to first create
