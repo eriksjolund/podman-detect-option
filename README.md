@@ -75,14 +75,18 @@ https://hub.docker.com/search?image_filter=official&q=
 
 | arguments | result | comment |
 | --        |  --    |  -- |
-| docker.io/library/nginx | `--userns=keep-id:uid=101,gid=0` | a bit surprising result. Shouldn't it be uid=101,gid=101? See https://hub.docker.com/_/nginx |
-| docker.io/library/redis | `--userns=keep-id:uid=999,gid=999` | |
-| docker.io/library/rabbitmq | `--userns=keep-id:uid=999,gid=999` | |
-| docker.io/library/registry | `--userns=keep-id:uid=999,gid=999` | |
 | --env MARIADB_RANDOM_ROOT_PASSWORD=1 docker.io/library/mariadb | `--userns=keep-id:uid=999,gid=999` | |
-| docker.io/library/tomcat | | |
+| docker.io/library/haproxy | | |
 | docker.io/library/mongo | `--userns=keep-id:uid=999,gid=999` | |
-| docker.io/library/postgres | ` --userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/neo4j | `--userns=keep-id:uid=7474,gid=7474` | |
+| docker.io/library/nextcloud | `--userns=keep-id:uid=33,gid=33` | |
+| docker.io/library/nginx | `--userns=keep-id:uid=101,gid=0` | a bit surprising result. Shouldn't it be uid=101,gid=101? See https://hub.docker.com/_/nginx |
+| docker.io/library/postgres | `--userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/rabbitmq | `--userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/redis | `--userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/registry | `--userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/tomcat | | |
 | docker.io/library/wordpress | `--userns=keep-id:uid=33,gid=33` | |
+| docker.io/library/zookeeper | `--userns=keep-id:uid=1000,gid=1000` | |
 
 An empty result does not neccessarily mean that no `--userns=keep-id:uid=$uid,gid=$gid` is needed.
