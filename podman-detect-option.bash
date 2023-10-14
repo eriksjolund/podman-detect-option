@@ -3,26 +3,21 @@
 set -o errexit
 set -o nounset
 
-helperscript1=$1
-helperscript2=$2
-user=$3
+helperscript=$1
+seconds=$2
 
-# seconds to wait before checking the ownership of created files
-seconds=$4
-
-# remove unneeded arguments from $@
+# remove unneeded argument from $@
 shift
 shift
-shift
-shift
+extra=$$
 
-useradd "$user"
+ctr=$(podman create "$@")
 
-systemd-run -M "${user}@" \
-  --user \
-  --collect \
-  --pipe \
-  --quiet \
-  --wait \
-  -- \
- bash "$helperscript1" "$helperscript2" "$seconds" "$@"
+podman start "$ctr"
+
+sleep "$seconds"
+
+upperdir=$(podman container inspect "$ctr" -f '{{ .GraphDriver.Data.UpperDir }}')
+
+cd "$upperdir"
+podman unshare bash "$helperscript"
