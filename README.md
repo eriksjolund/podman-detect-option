@@ -37,3 +37,23 @@ __Result__: `--userns=keep-id:uid=999,gid=999`
 `--quiet` was added to disable printing download progress of the container image.
 The option `--env MARIADB_RANDOM_ROOT_PASSWORD=1` was found in the 
 __docker.io/library/mariadb__ [documentation](https://hub.docker.com/_/mariadb)
+
+
+## Result from some popular container images
+
+Result from some popular container images
+https://hub.docker.com/search?image_filter=official&q=
+
+| arguments | result | comment |
+| --        |  --    |  -- |
+| docker.io/library/nginx | `--userns=keep-id:uid=101,gid=0` | a bit surprising result. Shouldn't it be uid=101,gid=101? See https://hub.docker.com/_/nginx |
+| docker.io/library/redis | `--userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/rabbitmq | `--userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/registry | `--userns=keep-id:uid=999,gid=999` | |
+| --env MARIADB_RANDOM_ROOT_PASSWORD=1 docker.io/library/mariadb | `--userns=keep-id:uid=999,gid=999` | |
+| docker.io/library/tomcat | | |
+| docker.io/library/mongo | | |
+| docker.io/library/postgres | | |
+| docker.io/library/wordpress | | |
+
+An empty result does not neccessarily mean that no `--userns=keep-id:uid=$uid,gid=$gid` is needed.
