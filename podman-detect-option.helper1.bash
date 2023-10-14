@@ -11,11 +11,13 @@ shift
 shift
 extra=$$
 
-podman run --name "test${extra}" --detach "$@"
+ctr=$(podman create "$@")
+
+podman start "$ctr"
 
 sleep "$seconds"
 
-upperdir=$(podman container inspect "test${extra}" -f '{{ .GraphDriver.Data.UpperDir }}')
+upperdir=$(podman container inspect "$ctr" -f '{{ .GraphDriver.Data.UpperDir }}')
 
 cd "$upperdir"
 podman unshare bash "$helperscript2"
