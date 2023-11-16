@@ -67,6 +67,66 @@ __Result__: `--userns=keep-id:uid=999,gid=999`
 The option `--env MARIADB_RANDOM_ROOT_PASSWORD=1` was found in the 
 __docker.io/library/mariadb__ [documentation](https://hub.docker.com/_/mariadb)
 
+### Example 3: use detected option when running postgres on macOS
+
+The detected option for the container image __docker.io/library/postgres__ is
+ `--userns=keep-id:uid=999,gid=999`
+
+The detected option should be used on the rootless podman conection.
+
+```
+$ podman machine start mymachine
+$ podman system connection list
+Name                         URI                                                         Identity                                     Default
+mymachine                    ssh://core@127.0.0.1:60852/run/user/501/podman/podman.sock  /Users/myuser/.ssh/mymachine                 false
+mymachine-root               ssh://root@127.0.0.1:60852/run/podman/podman.sock           /Users/myuser/.ssh/mymachine                 false
+$
+```
+
+The rootless connection is in this example named _mymachine_
+To use it, add `-c mymachine` to the podman commands.
+
+```
+$ cd $HOME
+$ mkdir data
+$ chmod 0700 data
+$ podman -c mymachine run --name test --rm -d -e POSTGRES_PASSWORD=insecurepassword -v ./data:/var/lib/postgresql/data --userns=keep-id:uid=999,gid=999 docker.io/library/postgres
+5c5ec5a85e1b1e714309fb70cf936488f6bd657123ffa4193e448f7805a2e0d5
+$ podman -c mymachine logs test 2>&1 | tail -1
+2023-11-16 11:27:04.876 UTC [1] LOG:  database system is ready to accept connections
+$
+```
+
+postgres created files and directories in the bind-mounted directory:
+
+```
+$ ls -l data | head -4
+total 120
+-rw-------   1 myuser mygroup     3 Nov 16 12:26 PG_VERSION
+drwx------   5 myuser mygroup   160 Nov 16 12:27 base
+drwx------  65 myuser mygroup   2080 Nov 16 12:29 global
+```
+
+Note in the example, the __podman run__ option __--publish__ was not used. If you need to connect to the postgres database from the macOS host, you would need to specify the __--publish__ option (for example `--publish 5432:5432`)
+
+----------
+
+Regarding the statement: _The detected option should be used on the rootless podman conection_
+
+If you would replace `-c mymachine` with `-c mymachine-root` in the example, postgres fails to start. If also the `-d` option is removed, the error message is shown
+```
+chmod: changing permissions of '/var/lib/postgresql/data': Operation not permitted
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "en_US.utf8".
+The default database encoding has accordingly been set to "UTF8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+initdb: error: could not access directory "/var/lib/postgresql/data": Permission denied
+```
 
 ## Result from some popular container images
 
